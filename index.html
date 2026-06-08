@@ -167,26 +167,13 @@
       box-shadow: 4px 4px 0 #000, 0 0 20px rgba(143, 92, 255, 0.36);
     }
 
-    .story-text {
-      position: relative;
-      max-width: 760px;
-      color: var(--text);
-      font-size: clamp(1.15rem, 2.5vw, 1.55rem);
-      line-height: 1.45;
-      font-weight: 800;
-      text-shadow: 0 1px 0 #000;
-    }
-
     .choice-frames {
       position: relative;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 24px;
+      margin-top: 4px;
     }
 
     .choice-frame {
-      min-height: 142px;
+      min-height: 280px;
       border: 4px solid var(--line);
       border-radius: 6px;
       background:
@@ -198,15 +185,6 @@
       padding: 12px;
       display: grid;
       align-content: space-between;
-      transform: rotate(var(--tilt, 0deg));
-    }
-
-    .choice-frame:nth-child(2) {
-      --tilt: -1.2deg;
-    }
-
-    .choice-frame:nth-child(3) {
-      --tilt: 1deg;
     }
 
     .frame-stamp,
@@ -231,12 +209,21 @@
     }
 
     .frame-caption {
-      margin: 16px 0;
+      max-width: 760px;
+      margin: 24px 0;
       color: var(--text);
-      font-size: 0.94rem;
+      font-size: clamp(1.15rem, 2.4vw, 1.55rem);
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1.42;
       text-shadow: 2px 2px 0 #000;
+    }
+
+    .frame-note {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1.35;
     }
 
     .choices {
@@ -360,10 +347,6 @@
       .nav-links {
         justify-content: flex-start;
       }
-
-      .choice-frames {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
     }
 
     @media (max-width: 620px) {
@@ -377,7 +360,6 @@
       }
 
       .choices,
-      .choice-frames,
       .utility-row {
         grid-template-columns: 1fr;
       }
@@ -399,17 +381,13 @@
         <p>A single-file RPG prototype for brave experiments, bad decisions, and future portals.</p>
       </div>
       <nav class="nav-links" aria-label="Future pages">
-        <a href="characters.html">Characters</a>
-        <a href="inventory.html">Inventory</a>
         <a href="map.html">Map</a>
-        <a href="quests.html">Quests</a>
       </nav>
     </header>
 
     <section class="game-grid" aria-label="Comic Quest game">
       <div class="comic-panel">
         <div id="scene-tag" class="scene-tag">Issue #0</div>
-        <div id="story-text" class="story-text"></div>
         <div id="choice-frames" class="choice-frames" aria-label="Upcoming comic frames"></div>
         <div id="choices" class="choices"></div>
       </div>
@@ -454,11 +432,7 @@
       intro: {
         tag: "Issue #0",
         text: "You wake in the margin between panels. The city is inked but unfinished, and a door marked Lab Zero hums with unstable story energy.",
-        frames: [
-          { caption: "A skyline waits for someone to finish drawing the brave bits.", sfx: "hmmm" },
-          { caption: "Lab Zero glows like a bad idea wearing a fancy coat.", sfx: "vrrrr" },
-          { caption: "The gutter panel points home, which is suspiciously convenient.", sfx: "psst" }
-        ],
+        frame: { note: "Placeholder art: skyline, gutter, and one lab door glowing like it knows your browser history.", sfx: "hmmm" },
         choices: [
           { label: "Enter Lab Zero", next: "lab", className: "primary", effect: { log: "You step into Lab Zero." } },
           { label: "Im to high for this shit right now. I'm going home", next: "alley", className: "secondary", effect: { luck: 1, log: "You search the gutter panels for clues." } }
@@ -467,11 +441,7 @@
       lab: {
         tag: "Lab Zero",
         text: "Inside the lab, a console spits out hero profiles, broken plot hooks, and one very dramatic warning label: DO NOT PRESS THE SHINY BUTTON.",
-        frames: [
-          { caption: "A button shines with the confidence of a terrible mentor.", sfx: "ping" },
-          { caption: "Warning labels stack up like tiny legal tombstones.", sfx: "ahem" },
-          { caption: "The console coughs up your file and pretends it meant to.", sfx: "bzzt" }
-        ],
+        frame: { note: "Placeholder art: a suspicious button under museum lighting, surrounded by warnings everyone is definitely reading.", sfx: "ping" },
         choices: [
           { label: "Press the Shiny Button", next: "button", className: "primary", effect: { hp: -12, level: 1, item: "Sparking Cape", log: "The button explodes into a useful cape." } },
           { label: "Read the Console", next: "console", effect: { grit: 1, log: "You learn the lab was built to test realities." } }
@@ -480,11 +450,7 @@
       alley: {
         tag: "Fuck this i'm going home.",
         text: "You take an alleyway home. The walls are covered in speech bubbles with no speakers. One bubble whispers your name. Another offers you a side quest coupon.",
-        frames: [
-          { caption: "The alley has main-character lighting and zero respect for boundaries.", sfx: "drip" },
-          { caption: "A speech bubble follows you like it has unfinished business.", sfx: "hey" },
-          { caption: "The coupon flutters with the raw power of errands.", sfx: "flap" }
-        ],
+        frame: { note: "Placeholder art: an alley with dramatic puddles, rude speech bubbles, and a coupon trying too hard.", sfx: "psst" },
         choices: [
           { label: "Take the Coupon", next: "coupon", className: "primary", effect: { item: "Side Quest Coupon", log: "You pocket a coupon for future trouble." } },
           { label: "Return to Lab Zero", next: "lab", effect: { log: "The alley folds back toward the lab." } }
@@ -493,11 +459,7 @@
       button: {
         tag: "KRAK-BOOM",
         text: "Smoke clears. Your cape is slightly on fire, but your silhouette is much cooler. Somewhere, a narrator reluctantly approves.",
-        frames: [
-          { caption: "Before: one hero-shaped question mark.", sfx: "click" },
-          { caption: "During: every lab intern's nightmare earns overtime.", sfx: "boom" },
-          { caption: "After: cape acquired, eyebrows temporarily negotiable.", sfx: "fwoosh" }
-        ],
+        frame: { note: "Placeholder art: smoke, sparks, cape, and the exact expression of someone claiming this was on purpose.", sfx: "boom" },
         choices: [
           { label: "Strike a Hero Pose", next: "finale", className: "primary", effect: { luck: 1, log: "The pose works better than expected." } },
           { label: "Try the Console", next: "console", effect: { log: "You pretend that was all intentional." } }
@@ -505,25 +467,17 @@
       },
       console: {
         tag: "The Console",
-        text: "The console projects four locked destinations: Characters, Inventory, Map, and Quests. They are not built yet, but the buttons already know where they want to go.",
-        frames: [
-          { caption: "Characters: silhouettes arguing about who gets the coolest jacket.", sfx: "pose" },
-          { caption: "Inventory: one drawer, fourteen prophecies, no batteries.", sfx: "clunk" },
-          { caption: "Map: the city politely refuses to stay flat.", sfx: "warp" }
-        ],
+        text: "The console projects one working destination for now: Map. The rest of the machine pretends this is restraint and not a wiring problem.",
+        frame: { note: "Placeholder art: a pulsing city map, lots of locked ports, and one smug little route blinking open.", sfx: "warp" },
         choices: [
-          { label: "Open Characters Page", href: "characters.html" },
+          { label: "Open Map Page", href: "map.html", className: "primary" },
           { label: "Keep Exploring", next: "alley", className: "secondary", effect: { log: "You leave the future pages for later." } }
         ]
       },
       coupon: {
         tag: "Coupon Trouble",
         text: "Fine print appears: Valid for one heroic complication. The paper warms in your hand, eager to become important later.",
-        frames: [
-          { caption: "The coupon smiles in a font nobody should trust.", sfx: "tiny" },
-          { caption: "A complication queues itself behind your shoulder.", sfx: "tap" },
-          { caption: "The plot opens a tab and puts everything on credit.", sfx: "ka-ching" }
-        ],
+        frame: { note: "Placeholder art: a coupon with tiny print, huge confidence, and the emotional posture of a trap.", sfx: "tap" },
         choices: [
           { label: "Return to the Lab", next: "lab", effect: { log: "You carry the coupon back to Lab Zero." } },
           { label: "Cash It In", next: "finale", className: "primary", effect: { hp: -8, level: 1, item: "Mystery IOU", log: "The coupon becomes a promise from the plot." } }
@@ -532,19 +486,14 @@
       finale: {
         tag: "End of Demo",
         text: "The page ends on a splash panel: you, the lab, and a city full of unfinished adventures. The next issue waits for new pages.",
-        frames: [
-          { caption: "The hero stands where finished art will eventually flex.", sfx: "ta-da" },
-          { caption: "Lab Zero smolders in a tasteful, fundable way.", sfx: "smok" },
-          { caption: "Next issue: the city gets opinions.", sfx: "soon" }
-        ],
+        frame: { note: "Placeholder art: a full splash pose with enough room for future comic drama and probably one impossible skyline.", sfx: "soon" },
         choices: [
           { label: "Restart Demo", next: "intro", className: "primary", effect: { reset: true } },
-          { label: "Visit Quest Page", href: "quests.html" }
+          { label: "Visit Map Page", href: "map.html" }
         ]
       }
     };
 
-    const storyText = document.getElementById("story-text");
     const sceneTag = document.getElementById("scene-tag");
     const choiceFramesEl = document.getElementById("choice-frames");
     const choicesEl = document.getElementById("choices");
@@ -571,29 +520,30 @@
     function render() {
       const scene = scenes[state.scene] || scenes.intro;
       sceneTag.textContent = scene.tag;
-      storyText.textContent = scene.text;
       choiceFramesEl.innerHTML = "";
       choicesEl.innerHTML = "";
 
-      (scene.frames || []).forEach((frame) => {
-        const panel = document.createElement("article");
-        panel.className = "choice-frame";
+      const panel = document.createElement("article");
+      panel.className = "choice-frame";
 
-        const stamp = document.createElement("span");
-        stamp.className = "frame-stamp";
-        stamp.textContent = "Art Pending";
+      const stamp = document.createElement("span");
+      stamp.className = "frame-stamp";
+      stamp.textContent = "Art Pending";
 
-        const caption = document.createElement("p");
-        caption.className = "frame-caption";
-        caption.textContent = frame.caption;
+      const caption = document.createElement("p");
+      caption.className = "frame-caption";
+      caption.textContent = scene.text;
 
-        const sfx = document.createElement("span");
-        sfx.className = "frame-sfx";
-        sfx.textContent = frame.sfx;
+      const sfx = document.createElement("span");
+      sfx.className = "frame-sfx";
+      sfx.textContent = scene.frame?.sfx || "next";
 
-        panel.append(stamp, caption, sfx);
-        choiceFramesEl.appendChild(panel);
-      });
+      const note = document.createElement("span");
+      note.className = "frame-note";
+      note.textContent = scene.frame?.note || "";
+
+      panel.append(stamp, caption, note, sfx);
+      choiceFramesEl.appendChild(panel);
 
       scene.choices.forEach((choice) => {
         const button = document.createElement("button");
