@@ -187,7 +187,6 @@
       gap: 12px;
     }
 
-    .frame-status,
     .art-frame,
     .story-frame {
       border: 3px solid var(--line);
@@ -196,51 +195,19 @@
       box-shadow: 4px 4px 0 #000;
     }
 
-    .frame-status {
-      justify-self: start;
-      padding: 8px 10px;
-      background: var(--candle);
-      color: #140c00;
-      font-size: 0.78rem;
-      font-weight: 900;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
     .art-frame {
       position: relative;
       min-height: 190px;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 72% 18%, rgba(248, 213, 107, 0.86) 0 18px, transparent 19px),
-        linear-gradient(180deg, rgba(27, 111, 214, 0.42), transparent 62%),
-        repeating-linear-gradient(-12deg, rgba(255, 255, 255, 0.08) 0 2px, transparent 2px 12px),
-        #0b0b13;
+      background: #0b0b13;
     }
 
-    .art-frame::before {
-      content: "";
-      position: absolute;
-      inset: auto 8% 0;
-      height: 48%;
-      background:
-        linear-gradient(90deg, transparent 0 7%, #101625 7% 16%, transparent 16% 22%, #171729 22% 38%, transparent 38% 45%, #101625 45% 57%, transparent 57% 64%, #171729 64% 82%, transparent 82%),
-        linear-gradient(0deg, #050508, #101625);
-      clip-path: polygon(0 100%, 0 38%, 7% 38%, 7% 18%, 15% 18%, 15% 48%, 23% 48%, 23% 28%, 36% 28%, 36% 58%, 47% 58%, 47% 14%, 56% 14%, 56% 48%, 68% 48%, 68% 24%, 82% 24%, 82% 62%, 100% 62%, 100% 100%);
-    }
-
-    .art-frame::after {
-      content: "";
-      position: absolute;
-      left: 12%;
-      bottom: 12%;
-      width: 76px;
-      height: 104px;
-      border: 4px solid var(--line);
-      background:
-        linear-gradient(90deg, transparent 44%, rgba(248, 213, 107, 0.9) 45% 55%, transparent 56%),
-        linear-gradient(180deg, #4b1d86, #101625);
-      box-shadow: 0 0 24px rgba(248, 213, 107, 0.36), 5px 5px 0 #000;
+    .art-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 190px;
+      object-fit: cover;
     }
 
     .art-placeholder {
@@ -249,7 +216,7 @@
       bottom: 12px;
       max-width: min(280px, calc(100% - 24px));
       border: 2px solid #000;
-      background: rgba(248, 213, 107, 0.92);
+      background: rgba(248, 213, 107, 0.88);
       color: #140c00;
       box-shadow: 3px 3px 0 #000;
       font-size: 0.72rem;
@@ -574,18 +541,19 @@
       const panel = document.createElement("article");
       panel.className = "choice-frame";
 
-      const status = document.createElement("div");
-      status.className = "frame-status";
-      status.textContent = "Art Pending";
-
       const artFrame = document.createElement("div");
       artFrame.className = "art-frame";
 
+      const artImage = document.createElement("img");
+      artImage.className = "art-image";
+      artImage.src = "assets/dark-wizard-lab-zero.webp";
+      artImage.alt = "A dark wizard approaches the glowing Lab Zero door beneath floating comic pages.";
+
       const placeholder = document.createElement("span");
       placeholder.className = "art-placeholder";
-      placeholder.textContent = "Temp sketch: Lab Zero under suspicious lighting";
+      placeholder.textContent = "Issue #0 cover drop";
 
-      artFrame.appendChild(placeholder);
+      artFrame.append(artImage, placeholder);
 
       const storyFrame = document.createElement("div");
       storyFrame.className = "story-frame";
@@ -599,7 +567,7 @@
       note.textContent = scene.frame?.note || "";
 
       storyFrame.append(caption, note);
-      panel.append(status, artFrame, storyFrame);
+      panel.append(artFrame, storyFrame);
       choiceFramesEl.appendChild(panel);
 
       scene.choices.forEach((choice) => {
