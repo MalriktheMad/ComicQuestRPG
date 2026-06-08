@@ -263,20 +263,6 @@
       padding: 14px;
     }
 
-    .frame-sfx {
-      justify-self: start;
-      border: 2px solid #000;
-      background: var(--flame);
-      color: #fff;
-      box-shadow: 3px 3px 0 #000;
-      font-size: 0.72rem;
-      font-weight: 900;
-      line-height: 1;
-      padding: 5px 7px;
-      text-transform: uppercase;
-      text-shadow: 1px 1px 0 #000;
-    }
-
     .frame-caption {
       max-width: 760px;
       margin: 0 0 12px;
@@ -608,15 +594,11 @@
       caption.className = "frame-caption";
       caption.textContent = scene.text;
 
-      const sfx = document.createElement("span");
-      sfx.className = "frame-sfx";
-      sfx.textContent = scene.frame?.sfx || "next";
-
       const note = document.createElement("span");
       note.className = "frame-note";
       note.textContent = scene.frame?.note || "";
 
-      storyFrame.append(caption, note, sfx);
+      storyFrame.append(caption, note);
       panel.append(status, artFrame, storyFrame);
       choiceFramesEl.appendChild(panel);
 
