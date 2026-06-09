@@ -16,6 +16,12 @@ The extra pocket-check page is:
 one-cig.html
 ```
 
+The temporary Lab Zero menu unlock page is:
+
+```text
+lab-zero.html
+```
+
 ## Current Art
 
 The root page uses this image:
@@ -57,4 +63,4 @@ Avoid spaces in file names. Spaces work sometimes, but they make links easier to
 
 ## Cleanup Notes
 
-The old `characters.html`, `inventory.html`, `quests.html`, and `map.html` redirect pages were removed. The current demo only keeps pages that are part of the active prototype.
+The old `characters.html`, `inventory.html`, `quests.html`, and `map.html` redirect pages were removed. The current demo keeps only pages that are part of the active prototype, plus `lab-zero.html` as the win-condition handoff.

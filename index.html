@@ -432,55 +432,107 @@
     const scenes = {
       intro: {
         tag: "Issue #0",
-        text: "You wake in the margin between panels. The city is inked but unfinished, and a door marked Lab Zero hums with unstable story energy.",
+        text: "Littlewing waits in front of Lab Zero like he has been hired by the door and paid in crumbs. The city is half ink, half thunder, and every floating page overhead is trying very hard not to spoil the ending.",
+        frame: { note: "Panel note: Littlewing has already decided you are late." },
         choices: [
-          { label: "Enter Lab Zero", next: "lab", className: "primary", effect: { log: "You step into Lab Zero." } },
-          { label: "Im to drunk for this shit right now. I'm going home", next: "alley", className: "secondary", effect: { luck: 1, log: "You search the gutter panels for clues." } }
+          { label: "Approach Littlewing", next: "littlewing", className: "primary", effect: { log: "Littlewing taps the panel border with one tiny foot." } },
+          { label: "Pretend This Is Normal", next: "alley", className: "secondary", effect: { luck: 1, log: "You commit to the ancient strategy of walking away from plot." } }
+        ]
+      },
+      littlewing: {
+        tag: "Littlewing",
+        text: "Littlewing looks you up and down, then chirps once. Somehow the chirp contains a waiver, a threat, and a map drawn entirely in attitude. The Lab Zero door unlocks one bolt out of pure embarrassment.",
+        frame: { note: "Translation pending. Confidence high. Manners low." },
+        choices: [
+          { label: "Respect the Bird", next: "threshold", className: "primary", effect: { grit: 1, item: "Littlewing's Approval", log: "You earn Littlewing's suspicious approval." } },
+          { label: "Ask for Directions", next: "alley", className: "secondary", effect: { luck: 1, log: "Littlewing points everywhere except where you are standing." } }
+        ]
+      },
+      threshold: {
+        tag: "Lab Zero Door",
+        text: "The door scans your inventory, your posture, and one regrettable thought from last Thursday. A receipt prints from the keypad: ADVENTURER ACCEPTED. WARRANTY VOID IF HERO BECOMES TOO INTERESTING.",
+        frame: { note: "The keypad absolutely judges you." },
+        choices: [
+          { label: "Enter Lab Zero", next: "lab", className: "primary", effect: { log: "The door opens into impossible fluorescent weather." } },
+          { label: "Kick the Door Gently", next: "button", className: "secondary", effect: { hp: -4, grit: 1, log: "The door kicks back, politely but firmly." } }
         ]
       },
       lab: {
         tag: "Lab Zero",
-        text: "Inside the lab, a console spits out hero profiles, broken plot hooks, and one very dramatic warning label: DO NOT PRESS THE SHINY BUTTON.",
+        text: "Inside the lab, machines argue about genre. One vat is labeled HERO SAUCE. Another is labeled DO NOT PUT HERO IN SAUCE. A console blinks: PLEASE CHOOSE A TERRIBLE IDEA.",
+        frame: { note: "Lab Zero is union-built from bad omens and extension cords." },
         choices: [
           { label: "Press the Shiny Button", next: "button", className: "primary", effect: { hp: -12, level: 1, item: "Sparking Cape", log: "The button explodes into a useful cape." } },
-          { label: "Read the Console", next: "console", effect: { grit: 1, log: "You learn the lab was built to test realities." } }
+          { label: "Read the Console", next: "console", effect: { grit: 1, log: "You learn the lab was built to test realities, snacks, and alibis." } }
         ]
       },
       alley: {
-        tag: "Fuck this i'm going home.",
-        text: "You take an alleyway home. The walls are covered in speech bubbles with no speakers. One bubble whispers your name. Another offers you a side quest coupon.",
+        tag: "Nope Alley",
+        text: "You leave through an alley that was definitely not there a second ago. The walls are covered in speech bubbles with no speakers. One bubble whispers your name. Another asks if you validate parking.",
+        frame: { note: "This alley is legally a maze and emotionally a prank." },
         choices: [
-          { label: "Take the Coupon", next: "coupon", className: "primary", effect: { item: "Side Quest Coupon", log: "You pocket a coupon for future trouble." } },
-          { label: "Return to Lab Zero", next: "lab", effect: { log: "The alley folds back toward the lab." } }
+          { label: "Take the Side Quest Coupon", next: "coupon", className: "primary", effect: { item: "Side Quest Coupon", log: "You pocket a coupon for future trouble." } },
+          { label: "Go Back Before It Gets Weirder", next: "threshold", effect: { log: "The alley folds back toward Lab Zero." } }
         ]
       },
       button: {
         tag: "KRAK-BOOM",
-        text: "Smoke clears. Your cape is slightly on fire, but your silhouette is much cooler. Somewhere, a narrator reluctantly approves.",
+        text: "Smoke clears. Your cape is slightly on fire, your eyebrows have filed a complaint, and Littlewing is standing exactly where he was before, somehow wearing safety goggles.",
+        frame: { note: "Littlewing has OSHA energy now." },
         choices: [
-          { label: "Strike a Hero Pose", next: "finale", className: "primary", effect: { luck: 1, log: "The pose works better than expected." } },
-          { label: "Try the Console", next: "console", effect: { log: "You pretend that was all intentional." } }
+          { label: "Strike a Hero Pose", next: "pose", className: "primary", effect: { luck: 1, log: "The pose works better than expected." } },
+          { label: "Blame the Console", next: "console", effect: { log: "You point at the console. The console points back." } }
         ]
       },
       console: {
         tag: "The Console",
-        text: "The console projects a half-finished routing table, three sparks, and a stern reminder that Lab Zero is not done rearranging itself.",
+        text: "The console displays your stats, your likely mistakes, and a menu option called BEAT GAME NOW? It is grayed out, then notices Littlewing staring at it and becomes clickable out of fear.",
+        frame: { note: "Current build status: haunted but cooperative." },
         choices: [
-          { label: "Follow the Sparks", next: "alley", className: "primary", effect: { log: "The sparks lead you back toward the alley panels." } },
-          { label: "Return to Lab Zero", next: "lab", className: "secondary", effect: { log: "You keep the future pages sealed for now." } }
+          { label: "Run the Win Protocol", next: "winProtocol", className: "primary", effect: { level: 1, log: "You run the win protocol. The lab begins applauding in binary." } },
+          { label: "Follow the Sparks", next: "alley", className: "secondary", effect: { log: "The sparks lead you back toward the alley panels." } }
         ]
       },
       coupon: {
         tag: "Coupon Trouble",
-        text: "Fine print appears: Valid for one heroic complication. The paper warms in your hand, eager to become important later.",
+        text: "Fine print appears: VALID FOR ONE HEROIC COMPLICATION. Littlewing pecks the coupon, and the coupon pecks back. That means it is legally active.",
+        frame: { note: "Never accept paperwork that has reflexes." },
         choices: [
-          { label: "Return to the Lab", next: "lab", effect: { log: "You carry the coupon back to Lab Zero." } },
-          { label: "Cash It In", next: "finale", className: "primary", effect: { hp: -8, level: 1, item: "Mystery IOU", log: "The coupon becomes a promise from the plot." } }
+          { label: "Cash It In", next: "couponCash", className: "primary", effect: { hp: -8, level: 1, item: "Mystery IOU", log: "The coupon becomes a promise from the plot." } },
+          { label: "Return to the Lab", next: "lab", effect: { log: "You carry the coupon back to Lab Zero." } }
+        ]
+      },
+      couponCash: {
+        tag: "Complication Paid",
+        text: "The coupon tears itself in half and opens a tiny legal portal. A voice says, 'Congratulations, you have purchased consequences.' Littlewing nods like this is excellent finance.",
+        frame: { note: "The plot now owes you exactly one dramatic entrance." },
+        choices: [
+          { label: "Enter the Legal Portal", next: "winProtocol", className: "primary", effect: { grit: 1, log: "You step through the smallest possible loophole." } },
+          { label: "Retreat with Dignity", next: "threshold", className: "secondary", effect: { log: "You retreat with most of your dignity." } }
+        ]
+      },
+      pose: {
+        tag: "Splash Pose",
+        text: "You hit the pose. The panel widens. The soundtrack arrives six seconds late but with confidence. Littlewing raises one wing, and every broken machine in Lab Zero mistakes it for leadership.",
+        frame: { note: "Achievement unlocked: improbable composition." },
+        choices: [
+          { label: "Accept Leadership", next: "winProtocol", className: "primary", effect: { level: 1, item: "Unlicensed Leadership", log: "Lab Zero accepts your extremely temporary command." } },
+          { label: "Ask Littlewing First", next: "littlewing", className: "secondary", effect: { log: "Littlewing pretends this was his plan." } }
+        ]
+      },
+      winProtocol: {
+        tag: "You Beat It?",
+        text: "Against every reasonable forecast, you beat the prototype. The game pauses, checks its notes, then quietly removes your name from the list of disposable test subjects. Something in Lab Zero opens that was not on the page before.",
+        frame: { note: "This is where the next game starts smiling." },
+        choices: [
+          { label: "Open Lab Zero Menu", href: "lab-zero.html", className: "primary", effect: { log: "A new Lab Zero link appears in the smoke." } },
+          { label: "Stay in Comic Quest", next: "finale", className: "secondary", effect: { log: "You decide not to trust a door that celebrates." } }
         ]
       },
       finale: {
-        tag: "End of Demo",
-        text: "The page ends on a splash panel: you, the lab, and a city full of unfinished adventures. The next issue waits for new pages.",
+        tag: "End of Issue #0",
+        text: "The page ends on Littlewing, the lab, and a city full of unfinished adventures. The next issue waits behind the door, tapping its foot, pretending it has not already written three jokes about you.",
+        frame: { note: "End card: suspiciously temporary." },
         choices: [
           { label: "Restart Demo", next: "intro", className: "primary", effect: { reset: true } },
           { label: "Pocket Check", href: "one-cig.html" }
