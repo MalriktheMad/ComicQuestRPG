@@ -72,14 +72,6 @@
       font-weight: 700;
     }
 
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    .nav-links a,
     .choice-btn,
     .utility-btn {
       border: 3px solid var(--line);
@@ -95,20 +87,13 @@
       transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
     }
 
-    .nav-links a {
-      padding: 10px 12px;
-      font-size: 0.82rem;
-    }
-
     .choice-btn,
     .utility-btn {
       padding: 14px 16px;
     }
 
-    .nav-links a:hover,
     .choice-btn:hover,
     .utility-btn:hover,
-    .nav-links a:focus-visible,
     .choice-btn:focus-visible,
     .utility-btn:focus-visible {
       background: linear-gradient(135deg, var(--purple), var(--blue));
@@ -366,9 +351,6 @@
         display: grid;
       }
 
-      .nav-links {
-        justify-content: flex-start;
-      }
     }
 
     @media (max-width: 620px) {
@@ -402,9 +384,6 @@
         <h1>Comic Quest</h1>
         <p>A single-file RPG prototype for brave experiments, bad decisions, and future portals.</p>
       </div>
-      <nav class="nav-links" aria-label="Future pages">
-        <a href="map.html">Map</a>
-      </nav>
     </header>
 
     <section class="game-grid" aria-label="Comic Quest game">
@@ -485,10 +464,10 @@
       },
       console: {
         tag: "The Console",
-        text: "The console projects one working destination for now: Map. The rest of the machine pretends this is restraint and not a wiring problem.",
+        text: "The console projects a half-finished routing table, three sparks, and a stern reminder that Lab Zero is not done rearranging itself.",
         choices: [
-          { label: "Open Map Page", href: "map.html", className: "primary" },
-          { label: "Keep Exploring", next: "alley", className: "secondary", effect: { log: "You leave the future pages for later." } }
+          { label: "Follow the Sparks", next: "alley", className: "primary", effect: { log: "The sparks lead you back toward the alley panels." } },
+          { label: "Return to Lab Zero", next: "lab", className: "secondary", effect: { log: "You keep the future pages sealed for now." } }
         ]
       },
       coupon: {
@@ -504,7 +483,7 @@
         text: "The page ends on a splash panel: you, the lab, and a city full of unfinished adventures. The next issue waits for new pages.",
         choices: [
           { label: "Restart Demo", next: "intro", className: "primary", effect: { reset: true } },
-          { label: "Visit Map Page", href: "map.html" }
+          { label: "Pocket Check", href: "one-cig.html" }
         ]
       }
     };
